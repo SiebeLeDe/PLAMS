@@ -1,8 +1,9 @@
 # Changelog
+
 Notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-The versioning for this project aligns with that of AMS. 
+The versioning for this project aligns with that of AMS.
 The format for this is the original year of the main release as a prefix, and an incremental postfix for each sub-release, starting at 101.
 In general, subsequent sub-releases after the main release contain only bug fixes.
 For example, 2024.101 is the major release of 2024, and 2024.102 is the first bugfix release.
@@ -12,16 +13,20 @@ This changelog is effective from the 2025 releases.
 ## [Unreleased]
 
 ### Changed
+
 * `view` function uses stdin mode for AMSview, reducing overhead for image creation
+* `MultiJob` now supports generic `Job` types for the `self.children` attribute
 
 ## 2026.102
 
 ### Fixed
+
 * `view` checks backend availability lazily
 
 ## 2026.101
 
 ### Added
+
 * `AMSAnalysisJobs` now have Pisa support, accept multiple AMSJobs as input, and no longer overwrite user supplied input settings.
 * `context_config` and `get_context` methods to allow context-based override of global `config` settings
 * `input_to_settings` method to convert AMS text input to a settings object
@@ -42,21 +47,25 @@ This changelog is effective from the 2025 releases.
 * `AMSAnalysisPlot.plot` method to plot results directly with matplotlib
 
 ### Changed
+
 * `JobAnalysis` returns an updated copy on modification instead of performing the operation in-place
 * `packmol` can accept a single `None` value for `n_molecules` if two of `n_atoms`, `density` and `box_bounds` are specified. The missing value is then auto-calculated
 * Switch to using hatchling build backend and restructure project
 * Type hints added for existing code and enforced in new code
 
 ### Fixed
+
 * Method to guess density in `packmol_around` changed to resolve large underestimations in molecular volumes
 * Regression in `GridRunner` which caused some SLURM and PBS commands to silently fail and jobs to be incorrectly awaited
 
 ### Deprecated
+
 * `add_to_class` decorator is deprecated in favor of using standalone functions or subclasses
 
 ## 2025.103
 
 ### Fixed
+
 * `SingleJob.load`, `JobManager.load_job` and `load` can load jobs from a `.dill` file from PLAMS<2025
 
 ## 2025.102
@@ -64,14 +73,15 @@ This changelog is effective from the 2025 releases.
 ## 2025.101
 
 ### Added
-* Methods `get_system`, `get_input_system` and `get_main_system` to `AMSResults`, which return an AMS `ChemicalSystem` instead of a PLAMS `Molecule` 
+
+* Methods `get_system`, `get_input_system` and `get_main_system` to `AMSResults`, which return an AMS `ChemicalSystem` instead of a PLAMS `Molecule`
 * `AMSJob` can accept an AMS `ChemicalSystem` instead of a PLAMS `Molecule` as an input system
 * Specific `ConfigSettings` and related settings classes with explicitly defined fields
 * Support for work functions: `AMSResults.get_work_function_results` and `plot_work_function`
 * Support for plotting phonons with `plot_phonons_band_structure`, `plot_phonons_dos` and `plot_phonons_thermodynamic_properties`
 * New `packmol_around` function for packing in non-orthorhombic boxes.
 * New `plot_grid_molecules` function for plotting with rdkit multiple molecules.
-* `Molecule.delete_atoms` method to delete multiple atoms with partial success 
+* `Molecule.delete_atoms` method to delete multiple atoms with partial success
 * Examples on `MoleculeFormats` and `MoleculeTools`
 * Examples on `Logging`
 * Script `generate_example.sh` to generate documentation pages from notebook examples
@@ -90,6 +100,7 @@ This changelog is effective from the 2025 releases.
 * Added `AMSViscosityFromBinLogJob` for running the AMS trajectory analysis tool to extract viscosity.
 
 ### Changed
+
 * Functions for optional packages (e.g. RDKit, ASE) are available even when these packages are not installed, but will raise an `MissingOptionalPackageError` when called
 * `AMSResults.get_main_ase_atoms` also includes atomic charges
 * Global `config` is initialized with a `ConfigSettings` instead of loading from the standard `plams_defaults` file
@@ -99,13 +110,14 @@ This changelog is effective from the 2025 releases.
 * Restructuring of examples and conversion of various examples to notebooks
 * Support for `networkx>=3` and `ase>=3.23`
 * Use standard library logger for `log` function
-* Make `Job` class inherit from `ABC` and mark abstract methods 
+* Make `Job` class inherit from `ABC` and mark abstract methods
 * Exceptions raised in `prerun` and `postrun` will always be caught and populate error message
 * `Settings.get_nested` takes a default argument which is returned if the nested key is not present in the settings instance
 * `JobManager.workdir` converted to a readonly property, with the underlying workdir lazily created if it does not exist
 * `JobRunner.parallel`, `JobRunner.maxjobs` and `JobRunner.maxthreads` are properties which can take values of `0` or `>1` and `JobRunner.semaphore` has been moved to a protected attribute `JobRunner._job_limit`
 
 ### Fixed
+
 * `Molecule.properties.charge` is a numeric instead of string type when loading molecule from a file
 * `Molecule.delete_all_bonds` removes the reference molecule from the removed bond instances
 * `SingleJob.load` returns the correctly loaded job
@@ -115,10 +127,10 @@ This changelog is effective from the 2025 releases.
 * Changes made to `JobRunner.maxjobs` after initialization are correctly applied
 
 ### Deprecated
+
 * `plams` launch script is deprecated in favor of simply running with `amspython`
 
 ### Removed
+
 * Legacy `BANDJob`, `DFTBJob`, `UFFJob`, `MOPACJob`, `ReaxFFJob`, `CSHessianADFJob` and `ADFJob` have been removed
 * Exception classes `AMSPipeDecodeError`, `AMSPipeError`, `AMSPipeInvalidArgumentError`, `AMSPipeLogicError`, `AMSPipeRuntimeError`, `AMSPipeUnknownArgumentError`, `AMSPipeUnknownMethodError`, `AMSPipeUnknownVersionError`, were moved from scm.plams to scm.amspipe.
-
-
